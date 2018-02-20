@@ -23,8 +23,8 @@ var HomePage = {
           this.newPerson = {name: "", bio: ""};
           this.errors = [];
         }.bind(this))
-        .catch(function(error) {
-          this.erros = error.response.data.errors;
+        .catch(function(error) { 
+          this.errors = error.response.data.errors; 
         }.bind(this));
     },
     deletePerson: function(inputPerson) {

@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>People App</title>
+  <title>My App</title>
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.js"></script>
   <script src="index.js" defer></script>
   <style>
-    .hidden {
-      display: none;
+    .strike {
+      text-decoration: line-through;
     }
   </style>
 </head>
@@ -25,16 +25,13 @@
 <template id="home-page">
   <div class="vue-component">
 
-    <h1>{{ message }}</h1>
-
     <div>
       <div v-for="person in people">
         <h2 v-on:click="toggleBioVisible(person)">{{ person.name }}</h2>
-
-        <div v-bind:class="{hidden: !person.bioVisible}">{{ person.bio }}
+        <div v-if="person.bioVisible">
+          <h4>{{ person.bio }}</h4>
+          <button v-on:click="deletePerson(person)">Delete this guy</button>
         </div>
-
-        <button v-on:click="deletePerson(person)">Delete this guy</button>
       </div>
     </div>
 
@@ -42,17 +39,21 @@
       <p>Person Count: {{ people.length }}</p>
     </div>
 
-    t.
     <div>
-      <h4>Add a New Person</h4>
-    <div>
-      <ul>
-        <li v-for="error in errors">{{ error }}</li>
-      </ul>
+      <h3>Add a Person</h3>
+      <div>
+        <ul>
+          <li v-for="error in errors">{{ error }}</li>
+        </ul>
+      </div>
+      <div>
+        Name: <input v-model="newPerson.name">
+      </div>
+      <div>
+        Bio: <input v-model="newPerson.bio">
+      </div>
+      <button v-on:click="addPerson()">Add Person</button>
     </div>
-    <div>
-      Bio: <input v-model="newPerson.bio">
-    </div>
-    <button v-on:click="addPerson()">Add Person</button>   
+
   </div>
 </template>

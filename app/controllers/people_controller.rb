@@ -2,17 +2,17 @@ class PeopleController < ApplicationController
   def index
     @people = Person.all
     render 'index.json.jbuilder'
-  end 
+  end
 
   def create
     @person = Person.new(
-                        name: params[:name],
-                        bio: params[:bio],
+                         name: params[:name],
+                         bio: params[:bio]
                         )
     if @person.save
       render 'show.json.jbuilder'
-    else 
+    else
       render json: {errors: @person.errors.full_messages}, status: :unprocessable_entity
-
+    end
   end
 end
