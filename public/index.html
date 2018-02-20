@@ -7,6 +7,11 @@
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.js"></script>
   <script src="index.js" defer></script>
+  <style>
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
 <body>
   <div id="vue-app">
@@ -22,11 +27,32 @@
 
     <h1>{{ message }}</h1>
 
-    <ul>
-      <li v-for="person in people">
-        {{ person.name }}, {{ person.bio }}
-      </li>
-    </ul>
+    <div>
+      <div v-for="person in people">
+        <h2 v-on:click="toggleBioVisible(person)">{{ person.name }}</h2>
 
+        <div v-bind:class="{hidden: !person.bioVisible}">{{ person.bio }}
+        </div>
+
+        <button v-on:click="deletePerson(person)">Delete this guy</button>
+      </div>
+    </div>
+
+    <div>
+      <p>Person Count: {{ people.length }}</p>
+    </div>
+
+    t.
+    <div>
+      <h4>Add a New Person</h4>
+    <div>
+      <ul>
+        <li v-for="error in errors">{{ error }}</li>
+      </ul>
+    </div>
+    <div>
+      Bio: <input v-model="newPerson.bio">
+    </div>
+    <button v-on:click="addPerson()">Add Person</button>   
   </div>
 </template>
