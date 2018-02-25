@@ -7,11 +7,8 @@
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.js"></script>
   <script src="index.js" defer></script>
-  <style>
-    .strike {
-      text-decoration: line-through;
-    }
-  </style>
+  <link rel="stylesheet" href="people.css">
+ 
 </head>
 <body>
   <div id="vue-app">
@@ -26,13 +23,45 @@
   <div class="vue-component">
 
     <div>
-      <div v-for="person in people">
+      <div>
+        Search by Name: <input v-model="nameFilter" list="names">
+        <datalist id="names">
+          <option v-for="person in people">{{ person.name }}</option>
+        </datalist>
+
+        Search by Bio: <input v-model="bioFilter">
+      </div>
+      <div>
+        <button v-on:click="setSortAttribute('name')">Sort by Name</button>
+        <button v-on:click="setSortAttribute('bio')">Sort by Bio</button>
+      </div>
+      <table>
+      <transition-group name="slide-right">
+      <div v-for="person in sortedPeople" v-if="isValidPerson(person)" v-bind:key="person.id">
         <h2 v-on:click="toggleBioVisible(person)">{{ person.name }}</h2>
         <div v-if="person.bioVisible">
           <h4>{{ person.bio }}</h4>
           <button v-on:click="deletePerson(person)">Delete this guy</button>
         </div>
       </div>
+    </transition-group>
+  </table>
+
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Bio</th>
+    </tr>
+
+    <tr>
+      <td></td>
+    </tr>
+
+    <tr>
+      <td></td>
+    </tr>
+
+  </table>
     </div>
 
     <div>
